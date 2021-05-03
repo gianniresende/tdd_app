@@ -31,4 +31,44 @@ feature "Customers", type: :feature do
     expect(page).to have_content('Client registered success')
     expect(Customer.last.name).to eq(customer_name) 
   end
+
+  scenario 'Not sregister client at blank' do
+    visit(new_customer_path)
+    click_on('Salvar Cliente')
+    expect(page).to have_content('Nome não pode ficar em branco')
+  end
+
+  scenario 'Show client' do 
+    customer = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['S','N'].sample,
+      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
+    )  
+
+    visit(customer_path(customer.id))
+    expect(page).to have_content(customer.name)
+  end
+
+  scenario 'Test index client' do 
+    customer1 = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['S','N'].sample,
+      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
+    )  
+
+    customer2 = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['S','N'].sample,
+      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
+    )
+
+    visit(customers_path)
+    expect(page).to have_content(customer1.name).and have_content(customer2.name)
+  end
 end
