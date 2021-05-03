@@ -1,6 +1,9 @@
 class CustomersController < ApplicationController
-  def index 
 
+  before_action :set_customer, only: [:show]
+
+  def index 
+    @customers = Customer.all
   end
 
   def new
@@ -16,11 +19,17 @@ class CustomersController < ApplicationController
       render :new
     end
   end
+
+  def show;  end
   
   private
 
   def customer_params
     params.require(:customer).permit(:name, :email, :phone, :avatar, :smoker)
+  end
+
+  def set_customer 
+    @customer = Customer.find params[:id]
   end
 
 end
