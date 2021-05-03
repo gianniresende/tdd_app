@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
 
-  before_action :set_customer, only: [:show]
+  before_action :set_customer, only: [:show, :update, :edit]
 
   def index 
     @customers = Customer.all
@@ -10,6 +10,10 @@ class CustomersController < ApplicationController
     @customer = Customer.new
   end
 
+  def edit 
+
+  end  
+
   def create 
     @customer = Customer.new(customer_params)
 
@@ -17,6 +21,14 @@ class CustomersController < ApplicationController
       redirect_to customers_path, notice: 'Client registered success'
     else
       render :new
+    end
+  end
+
+  def update 
+    if @customer.update(customer_params)
+      redirect_to customers_path, notice: 'Cliente atualizado com sucesso!'
+    else
+      render :edit
     end
   end
 
