@@ -2,6 +2,7 @@ pt-BR:
   New Client: Novo Cliente
   Create Client: Salvar Cliente
   client: cliente
+  Edit Client: Editando Cliente
   activerecord:
     models:
       customer:
