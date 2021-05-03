@@ -1,8 +1,24 @@
 <p><%= flash[:notice] %></p>
 <h1>Listing Clients</h1>
-<ul>
-  <% @customers.each do |customer| %>
-    <li><%= customer.name %></li>
-  <% end %>
-</ul>
+<table>
+  <thead>
+    <tr>
+      <td>Nome</td>
+      <td>Email</td>
+      <td>Phone</td>
+      <td>Actions</td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+    <tr>
+      <td><%= customer.name %></td>
+      <td><%= customer.email %></td>
+      <td><%= customer.phone %></td>
+      <td><%= link_to "Show", customer_path(customer.id) %></td>
+      <td><%= link_to "Edit", edit_customer_path(customer.id) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 <%= link_to "New Client", new_customer_path %>
