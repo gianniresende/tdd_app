@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'factories/customers'
 
 feature "Customers", type: :feature do
   scenario 'Verify link register client' do 
@@ -39,47 +40,23 @@ feature "Customers", type: :feature do
   end
 
   scenario 'Show client' do 
-    customer = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )  
+    customer = create(:customer)
 
     visit(customer_path(customer.id))
     expect(page).to have_content(customer.name)
   end
 
   scenario 'Test index client' do 
-    customer1 = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )  
+    customer1 = create(:customer)
 
-    customer2 = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )
+    customer2 = create(:customer)
 
     visit(customers_path)
     expect(page).to have_content(customer1.name).and have_content(customer2.name)
   end
 
   scenario 'Update one Client' do 
-    customer = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    ) 
+    customer = create(:customer)
 
     new_name = Faker::Name.name
     visit(edit_customer_path(customer.id))
@@ -91,13 +68,7 @@ feature "Customers", type: :feature do
   end
 
   scenario 'Click link to show' do  
-    customer = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )
+    customer = create(:customer)
 
     visit(customers_path)
     find(:xpath, "/html/body/table/tbody/tr/td[4]/a").click
@@ -106,13 +77,7 @@ feature "Customers", type: :feature do
   end
 
   scenario 'Click link to edit' do  
-    customer = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )
+    customer = create(:customer)
 
     visit(customers_path)
     find(:xpath, "/html/body/table/tbody/tr/td[5]/a").click
@@ -121,13 +86,7 @@ feature "Customers", type: :feature do
   end
 
   scenario 'Click link to delete', js: true do  
-    customer = Customer.create!(
-      name: Faker::Name.name,
-      email: Faker::Internet.email,
-      phone: Faker::PhoneNumber.phone_number,
-      smoker: ['S','N'].sample,
-      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
-    )
+    customer = create(:customer)
 
     visit(customers_path)
     find(:xpath, "/html/body/table/tbody/tr/td[6]/a").click
