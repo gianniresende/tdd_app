@@ -1,0 +1,19 @@
+pt-BR:
+  New Client: Novo Cliente
+  Create Client: Salvar Cliente
+  client: cliente
+  activerecord:
+    models:
+      customer:
+        one: Cliente
+        other: Clientes
+    attributes:      
+      customer:
+        id: Código
+        name: Nome
+        email: Email
+        phone: Telefone
+        smoker: Fumante?
+        avatar: Foto do Perfil
+        created_at: Criado em
+        updated_at: Atualizado em
